@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../globals.css";
 
+
 export const metadata: Metadata = {
   title: "Thread App",
   description: "A Next.js app which is a clone of Thread",
@@ -18,10 +19,8 @@ export default function AuthLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${inter.className} bg-dark-1`}>
-          <div className="flex items-center justify-center h-screen">
-            {children}
-          </div>
+        <body className={`${inter.className}`}>
+          {children}
         </body>
       </html>
     </ClerkProvider>

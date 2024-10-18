@@ -4,12 +4,12 @@ import Link from "next/link";
 import { sidebarLinks } from "@/constants";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { SignOutButton } from "@clerk/nextjs";
-import { SignedIn } from "@clerk/nextjs";
+import { SignOutButton, SignedIn } from "@clerk/nextjs";
 
 function Leftbar() {
   const pathname = usePathname();
   const router = useRouter();
+
   return (
     <section className="custom-scrollbar leftsidebar">
       <div className="flex w-full flex-1 flex-col gap-6 px-6">
@@ -39,12 +39,12 @@ function Leftbar() {
         <SignedIn>
           <SignOutButton
             signOutOptions={{
-              redirectUrl: "/sign-in",
+              redirectUrl: "/sign-in", // Redirect to the sign-in page after logout
             }}
           >
             <div className="flex cursor-pointer gap-4 p-4">
               <Image
-                src="assets/logout.svg"
+                src="/assets/logout.svg"
                 alt="logout"
                 width={24}
                 height={24}

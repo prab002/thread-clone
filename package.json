@@ -23,7 +23,7 @@
     "react-hook-form": "^7.53.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
-    "vercel": "^37.11.0",
+    "vercel": "^37.12.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {

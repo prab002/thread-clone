@@ -32,7 +32,7 @@ const page = async ({ params }: { params: { id: string } }) => {
         />
       </div>
       <div className="mt-7">
-        <Comment threadId={thread._id} currentUserImg={user.imageUrl} currentUserId={user.id}/>
+        <Comment threadId={thread._id} currentUserImg={userInfo?.image} currentUserId={userInfo?._id}/>
       </div>
       <div className="mt-10">
         {thread.children.map((childItem: any) => (

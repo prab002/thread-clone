@@ -1,9 +1,11 @@
 "use server";
 
+import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 import Thread from "../models/thread.model";
 import User from "../models/user.models";
 import { connectToDb } from "../mongoose";
+
 
 interface Props {
     text: string;
@@ -97,5 +99,37 @@ export async function fetchThreadById(id: string) {
         return thread;
     } catch (error: any) {
         throw new Error(`Failed to fetch thread: ${error.message}`);
+    }
+}
+
+export async function addCommentToThread(threadId: string, commentText: string, customUserId: string, path: string) {
+    connectToDb();
+
+    try {
+        // Find the user by custom ID to get the ObjectId
+        const user = await User.findOne({ customUserId: customUserId });
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        const originalThread = await Thread.findById(threadId);
+        if (!originalThread) {
+            throw new Error("Thread not found");
+        }
+
+        const commentThread = new Thread({
+            text: commentText,
+            author: user._id, // Use the MongoDB ObjectId here
+            parentId: threadId,
+        });
+
+        const savedCommentThread = await commentThread.save();
+        originalThread.children.push(savedCommentThread._id);
+        await originalThread.save();
+
+        revalidatePath(path);
+        
+    } catch (error: any) {
+        throw new Error(`Failed to add comment to thread: ${error.message}`);
     }
 }
